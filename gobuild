@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# __dirname impl
+# REF: http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
+DIRNAME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+TARGET=$1
+shift
+
+source "$DIRNAME/golang-crosscompile/crosscompile.bash"
+go-$TARGET $@
+
