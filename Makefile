@@ -1,8 +1,14 @@
 #!/usr/bin/make
 
+SHELL := /bin/bash
+
 PKG      := .
-BASENAME := $(shell basename `pwd`)
-GO       := go
+PWD      := $(shell pwd)
+BASENAME := $(shell basename $(PWD))
+MAKE_DIR := $(shell dirname $(lastword $(MAKEFILE_LIST)))
+
+GO      := go
+GOBUILD := $(MAKE_DIR)/gobuild # work around lack of ability to source .bash
 
 DEPS = $(shell $(GO) list -f '{{join .Deps "\n"}}' $(PKG) \
 			 | sort | uniq | grep -v "^_")
@@ -10,10 +16,14 @@ DEPS = $(shell $(GO) list -f '{{join .Deps "\n"}}' $(PKG) \
 .PHONY: %
 
 default: all
-
 all: build
+
 build: deps
-	$(GO) build $(PKG)
+amd64	
+%-amd64: ; $(GOBUILD) $@ build .
+%-386:   ; $(GOBUILD) $@ build .
+%-arm:   ; $(GOBUILD) $@ build .
+
 run: all
 	./$(BASENAME)
 

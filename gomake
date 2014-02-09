@@ -8,3 +8,4 @@ DIRNAME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 : ${DIRNAME:?"Cannot find DIRNAME. Is this bash?"}
 
 make -f "$DIRNAME/Makefile" $@
+
