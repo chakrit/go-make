@@ -20,15 +20,17 @@ Clone this repository and adds the `gomake` script to your `$PATH` or add an ali
 alias gomake="~/Documents/go-make/gomake"
 ```
 
-To enable cross-compilation support, you need to build the cross-compilers from source
-the [golang-crosscompile][0]. You only need to do this once. The supplied `Makefile`
-automatically source the required functions for you afterwards.
+To enable cross-compilation support, you need to build the cross-compilers first. Just
+clone the [golang-crosscompile][0] project and do the following:
 
 ```sh
 cd ~/Documents/go-make
 source ./golang-crosscompile/crosscompile.bash
 go-crosscompile-build-all
 ```
+
+You only need to do this once. The supplied `Makefile` automatically source the required
+functions for you afterwards.
 
 # TARGETS
 
@@ -38,11 +40,11 @@ the current folder and all subpackages where it make sense.
 * `gomake deps` - Install packages' dependencies.
 * `gomake test-deps` - Install packages' test dependencies.
 
-* `gomake test` - Runs go test.
-* `gomake cover` - Runs go test with `-cover` option.
-
 * `gomake build` - Builds the package and produce a binary.
 * `gomake clean` - Cleans artifacts related with the current folder.
+
+* `gomake test` - Runs go test.
+* `gomake cover` - Runs go test with `-cover` option.
 
 * `gomake vet` - Installs the `vet` go tool and runs it.
 * `gomake fmt` - Formats all sources in the current folder.
