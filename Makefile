@@ -19,7 +19,6 @@ default: all
 all: build
 
 build: deps
-amd64	
 %-amd64: ; $(GOBUILD) $@ build .
 %-386:   ; $(GOBUILD) $@ build .
 %-arm:   ; $(GOBUILD) $@ build .
