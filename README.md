@@ -34,8 +34,7 @@ functions for you afterwards.
 
 # TARGETS
 
-All targets must be invoked inside your `$GOPATH`. All commands effects the package in
-the current folder and all subpackages where it make sense.
+All targets must be invoked inside your `$GOPATH`.
 
 * `gomake deps` - Install packages' dependencies.
 * `gomake test-deps` - Install packages' test dependencies.
@@ -48,6 +47,10 @@ the current folder and all subpackages where it make sense.
 
 * `gomake vet` - Installs the `vet` go tool and runs it.
 * `gomake fmt` - Formats all sources in the current folder.
+
+All commands only effect the current package, you can include additional packages by
+giving `gomake` a `PKG` variable. However, most of the time if your package imports its
+subpackages, you should be just fine.
 
 # CROSSCOMPILE
 
