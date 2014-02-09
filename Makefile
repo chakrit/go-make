@@ -15,7 +15,7 @@ all: build
 build: deps
 	$(GO) build $(PKG)
 run: all
-	./$(PKG)
+	./$(BASENAME)
 
 fmt:
 	$(GO) fmt $(PKG)
