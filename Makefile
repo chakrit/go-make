@@ -1,9 +1,9 @@
 #!/usr/bin/make
 
 SHELL := /bin/bash
+PWD   := $(shell pwd)
 
 PKG      := .
-PWD      := $(shell pwd)
 BASENAME := $(shell basename $(PWD))
 MAKE_DIR := $(shell dirname $(lastword $(MAKEFILE_LIST)))
 
@@ -19,9 +19,10 @@ default: all
 all: build
 
 build: deps
-%-amd64: ; $(GOBUILD) $@ build .
-%-386:   ; $(GOBUILD) $@ build .
-%-arm:   ; $(GOBUILD) $@ build .
+	$(GO) build $(PKG)
+%-amd64: ; $(GOBUILD) $@ build $(PKG)
+%-386:   ; $(GOBUILD) $@ build $(PKG)
+%-arm:   ; $(GOBUILD) $@ build $(PKG)
 
 run: all
 	./$(BASENAME)
