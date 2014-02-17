@@ -26,6 +26,9 @@ build: deps
 %-386:   ; $(GOBUILD) $@ build $(PKG)
 %-arm:   ; $(GOBUILD) $@ build $(PKG)
 
+install: build
+	$(GO) install $(PKG)
+
 run: all
 	./$(BASENAME)
 
