@@ -10,8 +10,10 @@ MAKE_DIR := $(shell dirname $(lastword $(MAKEFILE_LIST)))
 GO      := go
 GOBUILD := $(MAKE_DIR)/gobuild # work around lack of ability to source .bash
 
-DEPS = $(shell $(GO) list -f '{{join .Deps "\n"}}' $(PKG) \
-			 | sort | uniq | grep -v "^_")
+FIND_STD_DEPS = $(GO) list std | sort | uniq
+FIND_PKG_DEPS = $(GO) list -f '{{join .Deps "\n"}}' $(PKG) | sort | uniq | grep -v "^_"
+DEPS          = $(shell comm -23 <($(FIND_PKG_DEPS)) <($(FIND_STD_DEPS)))
+
 
 .PHONY: %
 
