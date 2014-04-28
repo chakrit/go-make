@@ -16,8 +16,10 @@ FIND_PKG_DEPS = $(GO) list -f '{{join .Deps "\n"}}' $(PKG) | sort | uniq | grep 
 DEPS          = $(shell comm -23 <($(FIND_PKG_DEPS)) <($(FIND_STD_DEPS)))
 
 
-ifneq ($(CLEAR),0)
-*: clear
+ifeq ($(CLEAR),0)
+clear:
+	# no-op
+else
 clear:
 	clear
 endif
@@ -28,7 +30,7 @@ endif
 default: all
 all: build
 
-build: deps
+build: clear deps
 	$(GO) build $(PKG)
 %-amd64: ; $(GOBUILD) $@ build $(PKG)
 %-386:   ; $(GOBUILD) $@ build $(PKG)
@@ -52,7 +54,6 @@ lint: vet
 vet:
 	$(GO) get code.google.com/p/go.tools/cmd/vet
 	$(GO) tool vet $(PKG)
-
 clean:
 	$(GO) clean -i $(PKG)
 cleanall:
